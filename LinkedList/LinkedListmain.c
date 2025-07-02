@@ -13,11 +13,11 @@ struct Node* CreateNode(int val){
     return newnode;
 }
 
-void PrintList(struct Node** H){
+void PrintList(struct Node* H){
     
-    struct Node *ptr = *H;
+    struct Node *ptr = H;
     
-    if (*H == NULL){
+    if (H == NULL){
         printf("Linked List Does not exist. No Head");
     }
     
@@ -87,6 +87,23 @@ void InsertNode(struct Node **H,int val,int pos){
     }
 }
 
+void Reverse(struct Node **H){
+    struct Node *ptr = NULL;
+    struct Node *prev = NULL;
+    struct Node *curr = NULL;
+
+    curr = *H;
+
+    while(curr){
+        ptr = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr = ptr;
+    }
+
+    *H = prev;
+}
+
 void main(){
     struct Node* head = CreateNode(1);
     
@@ -94,5 +111,10 @@ void main(){
     InsertAtEnd(&head,4);
     InsertNode(&head,3,2);
 
-    PrintList(&head);
+    PrintList(head);
+    printf("\n");
+
+    Reverse(&head);
+    PrintList(head);
+    printf("\n");
 }
